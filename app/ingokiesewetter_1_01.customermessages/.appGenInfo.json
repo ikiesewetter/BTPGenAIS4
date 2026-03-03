@@ -1,0 +1,26 @@
+{
+  "generationParameters": {
+    "generationDate": "Tue Mar 03 2026 20:20:01 GMT+0000 (Coordinated Universal Time)",
+    "generatorPlatform": "SAP Business Application Studio",
+    "serviceType": "Local CAP",
+    "metadataFilename": "",
+    "serviceUrl": "http://localhost:4004/service/ingoKiesewetter_1_01/",
+    "appName": "ingokiesewetter_1_01.customermessages",
+    "appTitle": "Customer Messages",
+    "appDescription": "Manage Customer Messages",
+    "appNamespace": "",
+    "ui5Theme": "sap_horizon",
+    "ui5Version": "1.120.13",
+    "showMockDataInfo": false,
+    "generatorVersion": "1.20.4",
+    "template": "List Report Page V4",
+    "generatorName": "SAP Fiori Application Generator",
+    "entityRelatedConfig": [
+      {
+        "type": "Main Entity",
+        "value": "CustomerMessage"
+      }
+    ],
+    "launchText": "To launch the generated app, start your CAP project:  and navigate to the following location in your browser:\n\nhttp://localhost:4004/ingokiesewetter_1_01.customermessages/webapp/index.html"
+  }
+}
