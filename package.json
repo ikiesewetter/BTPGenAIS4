@@ -27,7 +27,8 @@
     "start-local": "npm run generate-entry-point && npm run cds-watch",
     "generate-entry-point": "dev-cap-tools gen-entrypoint",
     "cds-watch": "cds watch --open",
-    "watch-ingokiesewetter_1_01.customermessages": "cds watch --open ingokiesewetter_1_01.customermessages/webapp/index.html?sap-ui-xx-viewCache=false"
+    "watch-ingokiesewetter_1_01.customermessages": "cds watch --open ingokiesewetter_1_01.customermessages/webapp/index.html?sap-ui-xx-viewCache=false",
+    "watch-ingokiesewetter_1_01.productfaqapp": "cds watch --open ingokiesewetter_1_01.productfaqapp/webapp/index.html?sap-ui-xx-viewCache=false"
   },
   "private": true,
   "cds": {
@@ -53,14 +54,13 @@
           "credentials": {
             "destination": "S4HCP-ServiceOrder-Odata"
           }
-        },
-        "csrf": true,
-        "csrfInBatch": true
+        }
       }
     }
   },
   "lcap": true,
   "sapux": [
-    "app/ingokiesewetter_1_01.customermessages"
+    "app/ingokiesewetter_1_01.customermessages",
+    "app/ingokiesewetter_1_01.productfaqapp"
   ]
 }

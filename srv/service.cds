@@ -16,6 +16,15 @@ service ingoKiesewetter_1_01Srv
             ServiceOrder,
             ServiceOrderDescription
         };
+        
+    @odata.draft.enabled
+    entity ProductFAQ as projection on my.ProductFAQ
+    {
+            ID,
+            issue,
+            question,
+            answer
+    };
 }
 
 annotate ingoKiesewetter_1_01Srv with @requires :
