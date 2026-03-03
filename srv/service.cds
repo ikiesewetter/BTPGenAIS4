@@ -7,7 +7,16 @@ service ingoKiesewetter_1_01Srv
 {
     @odata.draft.enabled
     entity CustomerMessage as
-        projection on my.CustomerMessage;
+        projection on my.CustomerMessage
+        actions{@(
+            cds.odata.bindingparameter.name: '_it',
+            Common.SideEffects: {TargetProperties: [
+            '_it/suggestedResponseEnglish',
+            '_it/suggestedResponseCustomerLanguage'
+            ]}
+            )
+            action Action1();
+        }
 
     @cds.redirection.target
     entity A_ServiceOrder as
@@ -16,15 +25,16 @@ service ingoKiesewetter_1_01Srv
             ServiceOrder,
             ServiceOrderDescription
         };
-        
+
     @odata.draft.enabled
-    entity ProductFAQ as projection on my.ProductFAQ
-    {
+    entity ProductFAQ as
+        projection on my.ProductFAQ
+        {
             ID,
             issue,
             question,
             answer
-    };
+        };
 }
 
 annotate ingoKiesewetter_1_01Srv with @requires :

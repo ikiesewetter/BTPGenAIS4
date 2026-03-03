@@ -113,3 +113,71 @@ module.exports = {
   orchestrationCompletionSimple,
   orchestrationCompletionTemplate
 };
+
+function safeJsonParse(text) {
+  try {
+    return JSON.parse(text);
+  } catch (e) {
+    return { raw: text, parseError: String(e) };
+  }
+}
+
+async function generateResponseTechMessage(fullMessageCustomerLanguage) {
+  const promptTemplate = `
+Generate a helpful reply to the following customer message:
+newCustomerMessage: {{?fullMessageCustomerLanguage}}
+Produce the reply in two languages: in the original language of newCustomerMessage and in English. Return the result in the following JSON template:
+{
+  "suggestedResponseEnglish": "Text",
+  "suggestedResponseCustomerLanguage": "Text"
+}`;
+
+  try {
+    const orchestrationClient = await createOrchestrationClient(promptTemplate);
+
+    // v2.7.x: use placeholderValues (not inputParams)
+    const response = await orchestrationClient.chatCompletion({
+      placeholderValues: { fullMessageCustomerLanguage }
+    });
+
+    return safeJsonParse(response.getContent());
+  } catch (error) {
+    LOG.error("Error generating tech message response:", error);
+    throw new Error("Response generation service failed.");
+  }
+}
+
+async function generateResponseOtherMessage(messageSentiment, fullMessageCustomerLanguage) {
+  const messageType = messageSentiment === "Negative" ? 'a "we are sorry" note' : "a gratitude note";
+
+  const promptTemplate = `
+Generate {{?messageType}} to the newCustomerMessage:
+newCustomerMessage: {{?fullMessageCustomerLanguage}}
+Produce the reply in two languages: in the original language of newCustomerMessage and in English. Return the result in the following JSON template:
+{
+  "suggestedResponseEnglish": "Text",
+  "suggestedResponseCustomerLanguage": "Text"
+}`;
+
+  try {
+    const orchestrationClient = await createOrchestrationClient(promptTemplate);
+
+    // v2.7.x: use placeholderValues (not inputParams)
+    const response = await orchestrationClient.chatCompletion({
+      placeholderValues: { messageType, fullMessageCustomerLanguage }
+    });
+
+    return safeJsonParse(response.getContent());
+  } catch (error) {
+    LOG.error("Error generating other message response:", error);
+    throw new Error("Response generation service failed.");
+  }
+}
+
+module.exports = {
+  preprocessCustomerMassage,
+  orchestrationCompletionSimple,
+  orchestrationCompletionTemplate,
+  generateResponseTechMessage,
+  generateResponseOtherMessage
+};
